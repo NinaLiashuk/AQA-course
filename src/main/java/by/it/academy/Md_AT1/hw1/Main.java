@@ -5,51 +5,38 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Calculator calculator = new Calculator();
-        Scanner scanner = new Scanner(System.in);
-        double a, b;
-        a = checkCorrect();
-        b = checkCorrect();
-        System.out.println("Выберите операцию");
-        char c = scanner.next().charAt(0);
+        double numberOne, numberTwo;
+        String operation;
 
-        switch (c) {
-            case '+':
-                System.out.println(calculator.add(a, b));
+        Calculator calculator = new Calculator();
+        ScannerUtils utils = new ScannerUtils();
+        Scanner scanner = new Scanner(System.in);
+
+        numberOne = utils.inputAndCheckNumber();
+        numberTwo = utils.inputAndCheckNumber();
+        operation = utils.chooseAndCheckOperation();
+
+        switch (operation) {
+            case "+":
+                System.out.println(calculator.add(numberOne, numberTwo));
                 break;
-            case '-':
-                System.out.println(calculator.subtract(a, b));
+            case "-":
+                System.out.println(calculator.subtract(numberOne, numberTwo));
                 break;
-            case '*':
-                System.out.println(calculator.multiply(a, b));
+            case "*":
+                System.out.println(calculator.multiply(numberOne, numberTwo));
                 break;
-            case '/':
-                if (b == 0) {
-                    while (b == 0) {
+            case "/":
+                if (numberTwo == 0) {
+                    while (numberTwo == 0) {
                         System.out.println("Нельзя делить на ноль. Введите другое число");
-                        b = scanner.nextInt();
+                        numberTwo = scanner.nextInt();
                     }
                 }
-                if (b != 0) {
-                    System.out.println(calculator.divide(a, b));
+                if (numberTwo != 0) {
+                    System.out.println(calculator.divide(numberOne, numberTwo));
                 }
                 break;
         }
-    }
-
-    /**
-     * Метод проверяет корректность вводимых данных
-     * @return натуральное число
-     */
-    public static double checkCorrect(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите число");
-        double result;
-        while (!scanner.hasNextDouble()){
-            System.out.println("Введите корректный параметр");
-            scanner.next();
-        }
-        result = scanner.nextDouble();
-        return result;
     }
 }
